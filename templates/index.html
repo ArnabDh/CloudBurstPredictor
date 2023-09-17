@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Forecast</title>
+</head>
+<style>
+    body {background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);}
+</style>
+<body>
+    <h1>Weather Forecast</h1>
+    <form method="post">
+        <input type="text" name="city" placeholder="Enter city name">
+        <input type="submit" value="Search">
+    </form>
+    {% if weather_data %}
+    <h2>Weather in {{ weather_data.name }}, {{ weather_data.sys.country }}</h2>
+    <p>Temperature: {{ weather_data.main.temp }}°C</p>
+    <p>Weather: {{ weather_data.weather[0].description }}</p>
+    <p>Humidity: {{ weather_data.main.humidity }}%</p>
+    <p>Wind Speed: {{ weather_data.wind.speed }} m/s</p>
+    {% endif %}
+    <br>
+    <form action="{{url_for('predict')}}" method="post">
+        <input type="text" name="Temperature" placeholder="Temperature" required="required" />
+        <input type="text" name="Humidity" placeholder="Humidity" required="required" />
+        <input type="text" name="Wind Speed" placeholder="WindSpeed" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+    <br>
+    <br>
+    {{ prediction_text }}
+    <br>
+</body>
+</html>
