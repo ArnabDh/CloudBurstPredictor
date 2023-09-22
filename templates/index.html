@@ -2,10 +2,57 @@
 <html>
 <head>
     <title>Weather Forecast</title>
+    <style>
+        body {
+            background-image: url('https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            margin: 20;
+            padding: 10;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 100px;
+            color: #310bef;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+            color: #e2d91c;
+        }
+
+        p {
+            text-align: center;
+            color: #e2d91c;
+        }
+    </style>
 </head>
-<style>
-    body {background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);}
-</style>
 <body>
     <h1>Weather Forecast</h1>
     <form method="post">
@@ -20,6 +67,7 @@
     <p>Wind Speed: {{ weather_data.wind.speed }} m/s</p>
     {% endif %}
     <br>
+    <h1>Rainfall prediction</h1>
     <form action="{{url_for('predict')}}" method="post">
         <input type="text" name="Temperature" placeholder="Temperature" required="required" />
         <input type="text" name="Humidity" placeholder="Humidity" required="required" />
@@ -30,5 +78,16 @@
     <br>
     {{ prediction_text }}
     <br>
+    <h1>Burst Detection</h1>
+
+    <form  action="{{url_for('detectt')}}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <input type="submit" value="Detect Burst">
+    </form>
+    {% if prediction %}
+        <h2>Detected Burst Class:</h2>
+        <p>{{ label }}</p>
+        <p>{{ prediction }}</p>
+    {% endif %}
 </body>
 </html>
